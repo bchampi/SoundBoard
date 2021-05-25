@@ -30,12 +30,16 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="GRABACIONES" id="QXb-7X-rPf">
+                        <barButtonItem key="backBarButtonItem" title="Grabaciones" id="nXX-cz-aHZ"/>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" style="done" id="MLp-Xl-Grl">
                             <connections>
                                 <segue destination="IaH-Ia-bYi" kind="show" id="A74-K4-bdU"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableRecordings" destination="OC9-UN-r0m" id="6kz-dc-uhB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -122,9 +126,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MsP-Wx-heu"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Agregar Grabación" id="Nt9-vD-Ioz">
-                        <barButtonItem key="backBarButtonItem" title="Grabaciones" id="BOe-Hs-e1K"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Agregar Grabación" id="Nt9-vD-Ioz"/>
                     <connections>
                         <outlet property="addButton" destination="m77-bQ-ByR" id="qvm-F9-zCw"/>
                         <outlet property="nameTextField" destination="5q7-Rj-NVk" id="GUY-qg-Ix7"/>
@@ -142,7 +144,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="F3x-46-IMB" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="NTG-FX-p5f">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
