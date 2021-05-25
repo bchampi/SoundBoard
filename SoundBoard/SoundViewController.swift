@@ -109,6 +109,11 @@ class SoundViewController: UIViewController {
         } catch {}
     }
     
+    @IBAction func recordingVolume(_ sender: UISlider) {
+        print(sender.value)
+        playAudio?.volume = sender.value
+    }
+    
     @IBAction func addTapped(_ sender: Any) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let recording = Recording(context: context)
