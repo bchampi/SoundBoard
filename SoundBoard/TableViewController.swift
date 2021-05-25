@@ -43,6 +43,7 @@ class TableViewController: UITableViewController {
         let recording = recordings[indexPath.row]
         do {
             playAudio = try AVAudioPlayer(data: recording.audio! as Data)
+            playAudio?.play()
             print("Reproduciendo audio \(recording.name!)")
         } catch {}
         tableView.deselectRow(at: indexPath, animated: true)
