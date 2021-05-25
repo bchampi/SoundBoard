@@ -16,10 +16,16 @@ class SoundViewController: UIViewController {
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var durationRecord: UILabel!
+    
     
     var recordAudio: AVAudioRecorder?
     var playAudio: AVAudioPlayer?
     var audioURL: URL?
+    
+    var timer: Timer = Timer()
+    var count: Int = 0
+    var timerCounting: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,13 +68,37 @@ class SoundViewController: UIViewController {
             recordButton.setTitle("Grabar", for: .normal)
             playButton.isEnabled = true
             addButton.isEnabled = true
+            timerCounting = false
+            timer.invalidate()
+            durationRecord.textColor = UIColor.black
         }
         else {
-            recordAudio?.record()
             recordButton.setTitle("Detener", for: .normal)
             playButton.isEnabled = false
+            recordAudio?.record()
+            timerCounting = true
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
+            durationRecord.textColor = UIColor.systemBlue
         }
-        
+    }
+    
+    @objc func timerCounter() -> Void {
+        count = count + 1
+        let time = minutesAndSeconds(seconds: count)
+        let timeString = makeTimeString(minutes: time.0, seconds: time.1)
+        durationRecord.text = timeString
+    }
+    
+    func minutesAndSeconds(seconds: Int) -> (Int, Int) {
+        return (((seconds % 3600) / 60), (seconds % 3600) % 60)
+    }
+    
+    func makeTimeString(minutes: Int, seconds: Int) -> String {
+        var timerString = ""
+        timerString += String(format: "%02d", minutes)
+        timerString += ":"
+        timerString += String(format: "%02d", seconds)
+        return timerString
     }
     
     @IBAction func playTapped(_ sender: Any) {
@@ -82,7 +112,8 @@ class SoundViewController: UIViewController {
     @IBAction func addTapped(_ sender: Any) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let recording = Recording(context: context)
-        recording.name = nameTextField.text
+        recording.name = nameTextField.text!
+        recording.duration = durationRecord.text!
         recording.audio = NSData(contentsOf: audioURL!)! as Data
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
         navigationController!.popViewController(animated: true)
